@@ -61,7 +61,7 @@
   },
   {
     "id": "5",
-    "name": "Alex Beketov",
+    "name": "Alexandr Beketov",
     "email": "alex21-82@mail.ru",
     "phone": "093643965"
   },
@@ -82,5 +82,11 @@
     "name": "Lerochka Beketova",
     "email": "lerabeketova@gmail.com",
     "phone": "0986756564"
+  },
+  {
+    "id": "aa3245a2-d533-48c0-8272-df6ee6ccdbf5",
+    "name": "Galina Beketova",
+    "email": "galinaketova@gmail.com",
+    "phone": "097777777"
   }
 ]

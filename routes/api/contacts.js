@@ -1,19 +1,10 @@
 const express = require('express');
-const Joi = require('joi');
 const {NotFound} = require('http-errors');
 const {BadRequest} = require('http-errors');
 const router = express.Router();
-const contactsOperations = require("../../models/contacts");
-const contactsSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.number().required(),
-})
-const contactsSchemaPut = Joi.object({
-  name: Joi.string(),
-  email: Joi.string(),
-  phone: Joi.number(),
-})
+const contactsOperations = require('../../models/contacts');
+const {contactsSchemaPost, contactsSchemaPut} = require('../../validation');
+
 router.get('/', async (req, res, next) => {
   try {
     const contacts = await contactsOperations.listContacts()
@@ -39,7 +30,7 @@ router.get('/:contactId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {error} = contactsSchema.validate(req.body);
+    const {error} = contactsSchemaPost.validate(req.body);
     if (error){
       error.status = 400;
       error.message = `missing required ${error.message.replace(/"/g, "").replace(/is required/, "field")}`;
