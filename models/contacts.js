@@ -1,4 +1,3 @@
-// const { log } = require('node:console');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const { v4: uuidv4 } = require('uuid');
@@ -38,11 +37,8 @@ async function addContact(data) {
       ...data,
  }
   contacts.push(newContact);
-   await writeContacts(contacts)
-  // await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-   return newContact 
-  
-  
+   await writeContacts(contacts);
+   return newContact  
 }
 
 async function removeContact(contactId) {
@@ -55,14 +51,6 @@ async function removeContact(contactId) {
    const newContacts = [...contacts.slice(0, index), ...contacts.slice(index + 1)];
    await writeContacts(newContacts);
   return contacts[index]
-  // const index = contacts.findIndex(item => item.id === contactId);
-  //   if(index === -1){
-  //       return null;
-  //   }
-    // const [result] = contacts.splice(index, 1);
-    // await writeContacts(contacts)
-    // return result;
-    //return result;
 }
 
 async function updateContact(id, data) {
@@ -72,8 +60,7 @@ async function updateContact(id, data) {
       return null;
   }
   contacts[index] = {...contacts[index], ...data};
-  await writeContacts(contacts)
-  //await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  await writeContacts(contacts);
   return contacts[index];
 }
 
