@@ -26,6 +26,12 @@ const addSchema = Joi.object({
   phone: Joi.string().required(),
   favorite: Joi.boolean(),
 });
+const updateSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string(),
+  phone: Joi.string(),
+  favorite: Joi.boolean(),
+});
 
 const updateFavoriteSchema = Joi.object({
   favorite: Joi.boolean().required(),
@@ -34,6 +40,7 @@ const updateFavoriteSchema = Joi.object({
 const schemas = {
   addSchema,
   updateFavoriteSchema,
+  updateSchema
 }
   const Contact = model('contact', contactSchema);
   module.exports = {
