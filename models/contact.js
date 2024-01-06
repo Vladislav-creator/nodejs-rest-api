@@ -9,9 +9,17 @@ const contactSchema = new Schema({
     },
     email: {
       type: String,
+      required: [true, 'Set email for contact'],
     },
     phone: {
       type: String,
+      required: [true, 'Set phone for contact'],
+            validate: {
+                validator: function(v) {
+                    return /\+38\(\d{3}\)\d{3}-\d{2}-\d{2}/.test(v);
+                },
+                message: props => `${props.value} is not a valid phone number!`
+            },
     },
     favorite: {
       type: Boolean,
@@ -22,7 +30,7 @@ const contactSchema = new Schema({
   
 const addSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
   phone: Joi.string().required(),
   favorite: Joi.boolean(),
 });
