@@ -1,7 +1,6 @@
 
 const {Contact} = require('../models/contact');
 const { HttpError, ctrlWrapper } = require("../helpers");
-const {BadRequest} = require('http-errors');
 const listContacts = async (req, res) => {
   const contacts = await Contact.find({});
   res.json(contacts)
@@ -9,7 +8,6 @@ const listContacts = async (req, res) => {
 
 const getContactById = async (req, res) => {
   const { id } = req.params;
-  // const result = await Book.findOne({_id: id})
   const contact = await Contact.findById(id);
   if (!contact ) {
       throw HttpError(404, "Not found");
@@ -54,9 +52,6 @@ const updateStatusContact = async (req, res) => {
   }
   res.json(contact);
 }
-
-
-
 
 module.exports = {
   listContacts: ctrlWrapper(listContacts),
