@@ -10,6 +10,12 @@ const contactSchema = new Schema({
     email: {
       type: String,
       required: [true, 'Set email for contact'],
+      validate: {
+        validator: function(v) {
+            return /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+/.test(v);
+        },
+        message: props => `${props.value} is not a valid phone number!`
+    },
     },
     phone: {
       type: String,
