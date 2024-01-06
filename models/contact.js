@@ -14,7 +14,7 @@ const contactSchema = new Schema({
         validator: function(v) {
             return /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+/.test(v);
         },
-        message: props => `${props.value} is not a valid phone number!`
+        message: props => `${props.value} is not a valid email!`
     },
     },
     phone: {
