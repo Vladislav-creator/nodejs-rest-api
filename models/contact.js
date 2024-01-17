@@ -16,6 +16,7 @@ const contactSchema = new Schema({
         },
         message: props => `${props.value} is not a valid email!`
     },
+    unique: true,
     },
     phone: {
       type: String,
@@ -31,6 +32,10 @@ const contactSchema = new Schema({
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+  },
   }, {versionKey: false, timestamps: false});
   contactSchema.post("save", handleMongooseError);
   
