@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const {handleMongooseError} = require("../middlewares");
+const handleMongooseError = require("../middlewares/handleMongooseError");
 const Joi = require('joi');
 
 const emailRegexp = /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+/;
@@ -19,7 +19,10 @@ const userSchema = Schema(
           enum: ["starter", "pro", "business"],
           default: "starter"
         },
-        token: String
+        token: {
+          type: String,
+          default: ""
+        }
       },
      { versionKey: false, timestamps: true }
 );
