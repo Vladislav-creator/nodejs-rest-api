@@ -54,7 +54,7 @@ const logout = async(req, res) => {
     const {_id} = req.user;
     await User.findByIdAndUpdate(_id, {token: ""});
 
-    res.status(204).send({
+    res.status(204).json({
         message: "No Content"
     })
 }
@@ -66,9 +66,26 @@ const getCurrent = async(req, res)=> {
         subscription,
     })
 }
+const updateSubscription = async(req, res)=> {
+    
+    const {subscription} = req.query;
+    const subscriptions = ["starter", "pro", "business"]
+    if(!subscriptions.includes(subscription)){
+        throw HttpError(401, "Subscription wrong, the field must be 'starter' or 'pro' or 'business'");  
+    }
+    const {_id, email } = req.user;
+    await User.findByIdAndUpdate(_id, {subscription: subscription});
+
+    res.json({
+        email,
+        subscription,
+    })
+}
+
 module.exports = {
     register: ctrlWrapper(register),
     login: ctrlWrapper(login),
     logout: ctrlWrapper(logout),
     getCurrent: ctrlWrapper(getCurrent),
+    updateSubscription: ctrlWrapper(updateSubscription),
 }
