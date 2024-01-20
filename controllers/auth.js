@@ -19,9 +19,11 @@ const register = async(req, res)=> {
 
     const newUser = await User.create({...req.body, password: hashPassword});
 
-    res.status(201).json({
-        email: newUser.email,
-        subscription: newUser.subscription,
+    res.status(201).json( {
+        "user":{
+            email: newUser.email,
+            subscription: newUser.subscription,
+        }
     })
 }
 
@@ -67,10 +69,9 @@ const getCurrent = async(req, res)=> {
     })
 }
 const updateSubscription = async(req, res)=> {
-    const user = req.user
-    console.log(user);
+    
     const {subscription} = req.body
-    console.log(subscription);
+   
     const subscriptions = ["starter", "pro", "business"]
     if(!subscriptions.includes(subscription)){
         throw HttpError(401, "Subscription wrong, the field must be 'starter' or 'pro' or 'business'");  
