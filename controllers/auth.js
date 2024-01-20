@@ -67,8 +67,10 @@ const getCurrent = async(req, res)=> {
     })
 }
 const updateSubscription = async(req, res)=> {
-    
-    const {subscription} = req.query;
+    const user = req.user
+    console.log(user);
+    const {subscription} = req.body
+    console.log(subscription);
     const subscriptions = ["starter", "pro", "business"]
     if(!subscriptions.includes(subscription)){
         throw HttpError(401, "Subscription wrong, the field must be 'starter' or 'pro' or 'business'");  
