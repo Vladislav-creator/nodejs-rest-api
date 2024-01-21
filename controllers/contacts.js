@@ -1,4 +1,3 @@
-
 const {Contact} = require('../models/contact');
 const { HttpError, ctrlWrapper } = require("../helpers");
 
@@ -31,13 +30,13 @@ const addContact = async (req, res) => {
 const removeContact = async (req, res) => {
   const { _id: owner } = req.user;
   const { id } = req.params;
-  const contact = await Contact.findOne({ _id: id, owner });
+   const contact = await Contact.findOne({ _id: id, owner });
+  
+   await Contact.findByIdAndDelete(id);
   
   if (!contact) {
-      throw HttpError(404, "Not found");
-  }
-  await Contact.findByIdAndDelete(id);
-  
+    throw HttpError(404, "Not found");
+}
   res.json({
       message: "Delete success"
   })
