@@ -88,10 +88,9 @@ const updateSubscription = async(req, res)=> {
     })
 }
 const updateAvatar = async(req, res)=> {
-    const {_id} = req.user;
-    const {path: tempUpload, originalname} = req.file;
+
+    const {path: tempUpload, filename} = req.file;
     const filePath = req.file.path;
-    const filename = `${_id}_${originalname}`;
     const img = await Jimp.read(filePath);
     await img
     .autocrop()
@@ -106,6 +105,8 @@ const updateAvatar = async(req, res)=> {
         avatarURL,
     })
 }
+
+
 module.exports = {
     register: ctrlWrapper(register),
     login: ctrlWrapper(login),
