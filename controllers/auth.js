@@ -4,7 +4,7 @@ const gravatar = require("gravatar");
 const path = require("path");
 const fs = require("fs/promises");
 const {User} = require("../models/user");
-
+const Jimp = require("jimp");
 const { HttpError, ctrlWrapper } = require("../helpers");
 
 const {SECRET_KEY} = process.env;
@@ -90,7 +90,13 @@ const updateSubscription = async(req, res)=> {
 const updateAvatar = async(req, res)=> {
     const {_id} = req.user;
     const {path: tempUpload, originalname} = req.file;
+    const filePath = req.file.path;
     const filename = `${_id}_${originalname}`;
+    const img = await Jimp.read(filePath);
+    await img
+    .autocrop()
+    .cover(250, 250, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE)
+    .writeAsync(filePath);
     const resultUpload = path.join(avatarsDir, filename);
     await fs.rename(tempUpload, resultUpload);
     const avatarURL = path.join("avatars", filename);
