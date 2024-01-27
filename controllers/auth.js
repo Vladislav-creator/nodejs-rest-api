@@ -88,13 +88,18 @@ const updateSubscription = async(req, res)=> {
     })
 }
 const updateAvatar = async(req, res)=> {
-       const {_id} = req.user;
+    if(!req.file){
+        throw HttpError(401, "Field avatar undefined");  
+    }
+        const {_id} = req.user;
+        
+       
        const {path: tempUpload, filename} = req.file;
-    //    if(!req.file){
-    //     throw HttpError(401, "Avatar field undefined");  
-    // }
+   
        const filePath = req.file.path;
+   
     try {
+       
        const img = await Jimp.read(filePath);
        await img
        .autocrop()
@@ -102,6 +107,8 @@ const updateAvatar = async(req, res)=> {
        .writeAsync(filePath);
        const resultUpload = path.join(avatarsDir, filename);
        await fs.rename(tempUpload, resultUpload);
+       
+     
        const avatarURL = path.join("avatars", filename);
        await User.findByIdAndUpdate(_id, {avatarURL});
 
