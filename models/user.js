@@ -42,10 +42,14 @@ const loginSchema = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
 })
-
+const avatarSchema = Joi.object({
+  avatar: Joi.string().required(),
+  
+})
 const schemas = {
     registerSchema,
     loginSchema,
+    avatarSchema,
 }
 
 const User = model("user", userSchema);

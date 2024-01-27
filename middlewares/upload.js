@@ -8,6 +8,7 @@ const multerConfig = multer.diskStorage({
     filename: (req, file, cb) => {
         // file.originalname: TrevorPhilips-GTAV.png
         const {_id} = req.user;
+            
         const extname = path.extname(file.originalname); // .png
         const basename = path.basename(file.originalname, extname); // TrevorPhilips-GTAV
         const suffix = crypto.randomUUID();

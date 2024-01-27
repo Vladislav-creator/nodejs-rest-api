@@ -90,6 +90,9 @@ const updateSubscription = async(req, res)=> {
 const updateAvatar = async(req, res)=> {
        const {_id} = req.user;
        const {path: tempUpload, filename} = req.file;
+    //    if(!req.file){
+    //     throw HttpError(401, "Avatar field undefined");  
+    // }
        const filePath = req.file.path;
     try {
        const img = await Jimp.read(filePath);
