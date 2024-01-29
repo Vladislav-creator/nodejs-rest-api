@@ -22,7 +22,11 @@ const userSchema = Schema(
         token: {
           type: String,
           default: ""
-        }
+        },
+        avatarURL: {
+          type: String,
+          required: true,
+      }
       },
      { versionKey: false, timestamps: true }
 );
@@ -42,6 +46,7 @@ const loginSchema = Joi.object({
 const schemas = {
     registerSchema,
     loginSchema,
+   
 }
 
 const User = model("user", userSchema);
