@@ -7,6 +7,8 @@ const {User} = require("../models/user");
 const Jimp = require("jimp");
 const { HttpError, ctrlWrapper } = require("../helpers");
 
+const { log } = require("console");
+
 const {SECRET_KEY} = process.env;
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
@@ -88,6 +90,8 @@ const updateSubscription = async(req, res)=> {
     })
 }
 const updateAvatar = async(req, res)=> {
+   
+   
     if(!req.file){
         throw HttpError(401, "Field avatar undefined");  
     }
@@ -97,9 +101,10 @@ const updateAvatar = async(req, res)=> {
        const {path: tempUpload, filename} = req.file;
    
        const filePath = req.file.path;
-   
+
+
     try {
-       
+        await fs.unlink(`public/${req.user.avatarURL}`)
        const img = await Jimp.read(filePath);
        await img
        .autocrop()
