@@ -12,4 +12,7 @@ router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 router.post("/logout", authenticate, ctrl.logout);
 router.get("/current", authenticate, ctrl.getCurrent);
 router.patch("/", authenticate, ctrl.updateSubscription);
+router.get("/verify/:verificationCode", ctrl.verifyEmail);
+
+router.post("/verify", validateBody(schemas.emailSchema), ctrl.resendVerifyEmail);
 module.exports = router
