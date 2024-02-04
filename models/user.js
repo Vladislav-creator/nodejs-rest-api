@@ -31,15 +31,13 @@ const userSchema = Schema(
           type: String,
           default: "",
           required: [true, 'Verify token is required'],
-      }
-        },
+      },
         avatarURL: {
           type: String,
           required: true,
       }
-      },
-     { versionKey: false, timestamps: true }
-);
+    }, { versionKey: false, timestamps: true }
+      );
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
